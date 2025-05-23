@@ -1,0 +1,556 @@
+﻿<%@ Master Language="VB" CodeFile="web.master.vb" Inherits="web" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:image" content="https://jaytirupatiholiday.com/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700;800;900&amp;family=Playfair+Display:wght@400;500;600;700;800;900&amp;family=Roboto:wght@100;300;400;500;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/app.min.css">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        .site_popup_outer {
+            position: fixed;
+            z-index: 9999999;
+            width: 100%;
+            height: 100%;
+            background-color: #000000b5;
+            overflow: auto;
+            z-index:999999999;
+            top:0;
+            display: none; 
+        }
+        .site_popup_form{
+            background: linear-gradient(93deg, #ff7b26, #ec048c);
+            width: 500px;
+            padding: 30px 40px;
+            position: fixed;
+            transform: translate(-50%,-50%);
+            left: 50%;
+            top: 50%;
+            border-radius: 8px;
+            font-family: "Poppins",sans-serif;
+            
+            /*text-align: center;*/
+            z-index: 99999999;
+        }
+        @media(max-width:600px){
+            .site_popup_form {
+                width:340px;
+                padding: 30px 15px;
+            }
+        }
+        .site_popup_form a{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin:  0 0 0px auto;
+            background-color: transparent;
+            font-size: 30px;
+            color: #ffffff;
+            background: #03549a;
+            border-radius: 100%;
+            width: 30px;
+            height: 30px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        .site_popup_form h5{
+          color:#fff;
+          margin-top: -20px;
+        }
+        .site_popup_form p{
+            font-size: 14px;
+            text-align: justify;
+            margin: 20px 0;
+            line-height: 25px;
+        }
+        .subscribe-form .form-group {
+            margin-top: 20px;
+        }
+        .subscribe-form .form-group label {
+            padding-bottom: 5px;
+        }
+        .site_popup_form .pop-submit {
+          margin-top: 20px;
+        }
+        .site_popup_outer .form-group span{
+            color:#fff !important;
+            visibility: visible;
+        }
+        div#tawk-message-preview-content {
+            display: none !important;
+        }
+        .tawk-message-preview-content {
+            display: none !important;
+        }
+        div#tawk-message-preview {
+            display: none !important;
+        }
+    </style>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+<meta name="google-site-verification" content="wnv0V52su4BXivVdTGP9zWqN8ck7Ow12A2lS0_fgTxE" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WCTRXGRBVQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WCTRXGRBVQ');
+</script>
+</head>
+<body>
+    <form id="form1" runat="server"> 
+        <div class="site_popup_outer">
+            <div class="site_popup_form">
+                <a href="javascript:;" id="pop_close">&times;</a>
+                <h5 class="text-center">Request Quote</h5>
+                <div method="POST" class="ajax-contact">
+                   <div class="row">
+                      <div class="form-group col-md-12">
+                         <asp:TextBox class="form-control style3" id="txtName" placeholder="Your Name" runat="server"></asp:TextBox>
+                         <i class="fal fa-user"></i>
+                          <asp:RequiredFieldValidator ID="RequiredFieldValidator2" CssClass="mb-1" ControlToValidate="txtName" ValidationGroup="popup" runat="server" ErrorMessage="Fill Name*"></asp:RequiredFieldValidator>
+                      </div>
+                      <div class="form-group col-md-12">
+                         <asp:TextBox class="form-control style3" id="txtEmail" placeholder="Email Address" runat="server"></asp:TextBox>
+                         <i class="fal fa-envelope"></i>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" CssClass="mb-1" ControlToValidate="txtEmail" ValidationGroup="popup" runat="server" ErrorMessage="Fill Email*"></asp:RequiredFieldValidator>
+                      </div>
+                      <div class="form-group col-md-12">
+                         <asp:TextBox class="form-control style3" id="txtMobile" placeholder="Phone Number" runat="server"></asp:TextBox>
+                         <i class="fal fa-phone"></i>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" CssClass="mb-1" ControlToValidate="txtMobile" ValidationGroup="popup" runat="server" ErrorMessage="Fill Phone Number*"></asp:RequiredFieldValidator>
+                      </div>
+                      <div class="form-group col-md-12">
+                         <asp:DropDownList id="ddlRequirement" name="ddlState" runat="server"  CssClass="form-select">
+                            <asp:ListItem Value="">Select Tour Packages</asp:ListItem>
+                            <asp:ListItem Value="North India">North India</asp:ListItem>
+                            <asp:ListItem Value="South India">South India</asp:ListItem>
+                            <asp:ListItem Value="Central India">Central India</asp:ListItem>
+                            <asp:ListItem Value="North-East India">North-East India</asp:ListItem>
+                            <asp:ListItem Value="UAE">UAE</asp:ListItem>
+                            <asp:ListItem Value="Thailand">Thailand</asp:ListItem>
+                            <asp:ListItem Value="Nepal">Nepal</asp:ListItem>
+                            <asp:ListItem Value="Bhutan">Bhutan</asp:ListItem>
+                            <asp:ListItem Value="kashmir-tour-package">Kashmir Tour Package</asp:ListItem>
+                            <asp:ListItem Value="Other">Other</asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" CssClass="mb-1" ControlToValidate="ddlRequirement" InitialValue="" ValidationGroup="popup" runat="server" ErrorMessage="Select Tour Packages*"></asp:RequiredFieldValidator>
+                      </div>
+                      <div class="form-btn col-3">
+                         <asp:Button formnovalidate="formnovalidate" ID="btnSubmit" ValidationGroup="popup" class="ot-btn" style="border:1px solid white;" runat="server" Text="Check Price" />                         
+                      </div>
+                   </div>
+                   <p class="form-messages mb-0 mt-3"></p>
+                </div>               
+            </div>
+        </div>
+        <script type="text/javascript">
+            window.addEventListener("load", function () {
+                setTimeout(
+                    function open(event) {
+                        document.querySelector(".site_popup_outer").style.display = "block";
+                    },
+                    40000
+                )
+            });
+            document.querySelector("#pop_close").addEventListener("click", function () {
+                document.querySelector(".site_popup_outer").style.display = "none";
+            });
+        </script>  
+      <div class="ot-menu-wrapper">
+         <div class="ot-menu-area text-center">
+            <button class="ot-menu-toggle">
+               <i class="fal fa-times"></i>
+            </button>
+            <div class="mobile-logo">
+               <a href="/">
+                  <img src="assets/img/logo.png" alt="Jay Tirupati Holiday">
+               </a>
+            </div>
+            <div class="ot-mobile-menu">
+               <ul>
+                  <li>
+                     <a href="/">Home</a>
+                  </li>
+                  <li>
+                     <a href="domestic-tour" target="_blank">Domestic</a>
+                       <ul class="sub-menu">
+                            <li>
+                                <a href="north-india-tour-packages" target="_blank">North India</a>
+                            </li>
+                            <li>
+                                <a href="south-india-tour-packages" target="_blank">South India</a>
+                            </li>
+                            <li>
+                                <a href="central-india-tour-packages" target="_blank">Central India</a>
+                            </li>
+                            <li>
+                                <a href="north-east-india-tour-packages" target="_blank">North East India</a>
+                            </li>
+                       </ul>
+                  </li>
+                  <li>
+                     <a href="international-tour-packages" target="_blank">International</a>
+                      <ul class="sub-menu">
+                        <li>
+                            <a href="uae-tour-packages" target="_blank">UAE</a>
+                        </li>
+                        <li>
+                            <a href="thailand-tour-packages" target="_blank">Thailand</a>
+                        </li>
+                        <li>
+                            <a href="nepal-tour-packages" target="_blank">Nepal</a>
+                        </li>
+                        <li>
+                            <a href="bhutan-tour-packages" target="_blank">Bhutan</a>
+                        </li>
+                      </ul>
+                  </li>
+                  <li>
+                      <a href="javascript:;">Services</a>
+                       <ul class="sub-menu">
+                            <li>
+                                <a href="hotelservices" target="_blank">Hotel Booking</a>
+                            </li>
+                            <li>
+                                <a href="cabservices" target="_blank">Cab Services</a>
+                            </li>
+                            <li>
+                                <a href="flights-booking" target="_blank">Flights Booking</a>
+                            </li>
+                            <li>
+                                <a href="visa" target="_blank">Visa</a>
+                            </li>
+                            <li>
+                                <a href="foreign-exchange" target="_blank">Foreign Exchange</a>
+                            </li>
+                       </ul>
+                  </li>
+                  <li>
+                      <a href="blogs">Blogs</a>
+                  </li>
+                  <li>
+                     <a href="contact">Contact Us</a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <header class="ot-header header-layout1">
+         <div class="header-top">
+            <div class="container">
+               <div class="row justify-content-center justify-content-lg-between align-items-center">
+                  <div class="col-auto d-none d-lg-block">
+                     <div class="header-links">
+                        <ul>
+                           <li>
+                              <i class="fal fa-phone"></i>
+                              <a href="tel:++919667740384">+91 966-774-0384</a>
+                           </li>
+                           <li class="d-none d-xl-inline-block">
+                              <i class="fal fa-envelope"></i>
+                              <a href="mailto:travels@jaytirupatiholiday.com">travels@jaytirupatiholiday.com</a>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-auto">
+                     <div class="header-links">
+                        <ul>
+                          <li><a href="#."><i class="fab fa-facebook-f"></i></a></li>
+                          <li><a href="#."><i class="fa-brands fa-x-twitter"></i></a></li>
+                          <li><a href="#."><i class="fab fa-linkedin-in"></i></a></li>
+                          <li><a href="#."><i class="fab fa-instagram"></i></a></li>
+                       </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="sticky-wrapper">
+            <div class="menu-area">
+               <div class="container-fluid">
+                  <div class="row align-items-center justify-content-between">
+                     <div class="col-auto">
+                        <div class="header-logo">
+                           <a href="/">
+                              <img src="assets/img/logo.png" alt="Jay Tirupati Holiday">
+                           </a>
+                        </div>
+                     </div>
+                     <div class="col-auto">
+                        <nav class="main-menu d-none d-lg-inline-block">
+                           <ul>
+                              <li>
+                                 <a href="/">Home</a>
+                              </li>
+                              <li class="menu-item-has-children">
+                                 <a href="domestic-tour" target="_blank">Domestic</a>
+                                  <ul class="sub-menu">
+                                    <li>
+                                       <a href="north-india-tour-packages" target="_blank">North India</a>
+                                    </li>
+                                    <li>
+                                       <a href="south-india-tour-packages" target="_blank">South India</a>
+                                    </li>
+                                    <li>
+                                       <a href="central-india-tour-packages" target="_blank">Central India</a>
+                                    </li>
+                                    <li>
+                                       <a href="north-east-india-tour-packages" target="_blank">North East India</a>
+                                    </li>
+                                 </ul>
+                              </li>
+                              <li class="menu-item-has-children">
+                                 <a href="international-tour-packages" target="_blank">International</a>
+                                  <ul class="sub-menu">
+                                   <li>
+                                        <a href="uae-tour-packages" target="_blank">UAE</a>
+                                    </li>
+                                    <li>
+                                        <a href="thailand-tour-packages" target="_blank">Thailand</a>
+                                    </li>
+                                    <li>
+                                        <a href="nepal-tour-packages" target="_blank">Nepal</a>
+                                    </li>
+                                    <li>
+                                        <a href="bhutan-tour-packages" target="_blank">Bhutan</a>
+                                    </li>
+                                 </ul>
+                              </li>
+                              <li class="menu-item-has-children">
+                                 <a href="javascript:;">Services</a>
+                                  <ul class="sub-menu">
+                                    <li>
+                                       <a href="hotelservices" target="_blank">Hotel Booking</a>
+                                    </li>
+                                    <li>
+                                       <a href="cabservices" target="_blank">Cab Services</a>
+                                    </li>
+                                    <li>
+                                       <a href="flights-booking" target="_blank">Flights Booking</a>
+                                    </li>
+                                    <li>
+                                        <a href="visa" target="_blank">Visa Services</a>
+                                    </li>
+                                    <li>
+                                        <a href="foreign-exchange" target="_blank">Foreign Exchange</a>
+                                    </li>
+                                 </ul>
+                              </li>
+                              <li>
+                                 <a href="blogs">Blogs</a>
+                              </li>
+                              <li>
+                                 <a href="contact">Contact Us</a>
+                              </li>
+                           </ul>
+                        </nav>
+                        <button type="button" class="ot-menu-toggle d-inline-block d-lg-none">
+                           <i class="far fa-bars"></i>
+                        </button>
+                     </div>
+                     <div class="col-auto d-none d-xl-block">
+                        <div class="header-button">
+                           <a href="contact" class="ot-btn ml-25">Book Your Stay</a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="logo-bg"></div>
+            </div>
+         </div>
+      </header>
+      <div>
+            <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+       </div>
+      <footer class="footer-wrapper footer-layout1">
+         <div class="widget-area">
+            <div class="container">
+               <div class="row justify-content-between">
+                  <div class="col-md-3">
+                     <div class="widget footer-widget">
+                        <div class="ot-widget-about">
+                           <div class="about-logo">
+                              <a href="/">
+                                 <img src="assets/img/logo.png" alt="Jay Tirupati Holiday">
+                              </a>
+                           </div>
+                           <p class="about-text">Jay Tirupati Holiday Agency is a beacon of excellence in the travel industry, offering bespoke experiences tailored to fulfill every wanderlust. With meticulous attention to detail and a passion for creating unforgettable memories,</p>
+                           <div class="ot-social">
+                              <a href="https://www.facebook.com/">
+                                 <i class="fab fa-facebook-f"></i>
+                              </a>
+                              <a href="https://www.twitter.com/">
+                                 <i class="fa-brands fa-x-twitter"></i>
+                              </a>
+                              <a href="https://www.linkedin.com/">
+                                 <i class="fab fa-linkedin-in"></i>
+                              </a>
+                              <a href="https://www.instagram.com/">
+                                 <i class="fab fa-instagram"></i>
+                              </a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-2">
+                     <div class="widget widget_nav_menu footer-widget">
+                        <h3 class="widget_title">Quick Links</h3>
+                        <div class="menu-all-pages-container">
+                           <ul class="menu">
+                              <li>
+                                 <a href="/">Home</a>
+                              </li>
+                              <li>
+                                 <a href="about">About Us</a>
+                              </li>
+                              <li>
+                                 <a href="domestic-tour" target="_blank">Domestic</a>
+                              </li>
+                              <li>
+                                 <a href="international-tour" target="_blank">International</a>
+                              </li>
+                              <li>
+                                 <a href="blogs">Blogs</a>
+                              </li>
+                              <li>
+                                 <a href="contact">Contact Us</a>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="widget footer-widget">
+                        <h3 class="widget_title">Address</h3>
+                        <div class="">
+                           <div class="info-box">
+                              <div class="info-box_icon">
+                                 <i class="fas fa-location-dot"></i>
+                              </div>
+                              <p class="info-box_text">A-6, 2nd Floor, Mall Rd, Vijay Vihar Colony, Sector-1, Vidyadhar Nagar, Jaipur, Rajasthan 302039</p>
+                           </div>
+                           <div class="info-box">
+                              <div class="info-box_icon">
+                                 <i class="fas fa-envelope"></i>
+                              </div>
+                              <p class="info-box_text">
+                                 <a href="mailto:travels@jaytirupatiholiday.com" class="info-box_link">travels@jaytirupatiholiday.com</a>
+                              </p>
+                           </div>
+                           <div class="info-box">
+                              <div class="info-box_icon">
+                                 <i class="fas fa-envelope"></i>
+                              </div>
+                              <p class="info-box_text">
+                                 <a href="mailto:reservation@jaytirupatiholiday.com" class="info-box_link">reservation@jaytirupatiholiday.com</a>
+                              </p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="widget footer-widget">
+                        <h3 class="widget_title">Contact Us</h3>
+                           <div class="info-box">
+                              <div class="info-box_icon">
+                                 <i class="fas fa-phone"></i>
+                              </div>
+                              <p class="info-box_text">
+                                 <a href="tel:+919667740384" class="info-box_link">+91 9667-740-384</a>
+                              </p>
+                           </div>
+                           <div class="info-box">
+                              <div class="info-box_icon">
+                                 <i class="fas fa-phone"></i>
+                              </div>
+                              <p class="info-box_text">
+                                 <a href="tel:+919214377778" class="info-box_link">+91 9214-377-778</a>
+                              </p>
+                           </div>
+                           <div class="info-box">
+                              <div class="info-box_icon">
+                                 <i class="fas fa-phone"></i>
+                              </div>
+                              <p class="info-box_text">
+                                 <a href="tel:+917891001010" class="info-box_link">+91 7891-001-010</a>
+                              </p>
+                           </div>
+                           <div class="info-box">
+                              <div class="info-box_icon">
+                                 <i class="fas fa-phone"></i>
+                              </div>
+                              <p class="info-box_text">
+                                 <a href="tel:+919024442230" class="info-box_link">+91 9024-442-230</a>
+                              </p>
+                           </div>
+                     </div>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+         <div class="copyright-wrap style2">
+            <div class="container">
+               <div class="row justify-content-between align-items-center">
+                  <div class="col-lg-6">
+                     <p class="copyright-text">Copyright <i class="fal fa-copyright"></i> 2024 <a href="/">Jay Tirupati Holiday</a>. All Rights Reserved. </p>
+                  </div>
+                  <div class="col-lg-6 text-end d-none d-lg-block">                 
+                      <p class="copyright-text">Design & Development By <a href="/">Aspire Technosys Pvt. Ltd.</a></p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <div class="sidebar-btn">
+            <div class="side-calling-btn">
+                <a href="tel:+919667740384">
+                    <i class="fa fa-phone"></i>
+                </a>
+            </div>
+            <div class="side-whatsapp-btn">
+                <a href="https://wa.me/+919667740384">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+      <div class="scroll-top">
+         <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
+         </svg>
+      </div>
+      <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+      <script src="assets/js/app.min.js"></script>
+      <script src="assets/js/main.js"></script>
+        <!--Start of Tawk.to Script-->
+        <script type="text/javascript">
+            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+            (function () {
+                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+                s1.async = true;
+                s1.src = 'https://embed.tawk.to/66d1acfb50c10f7a00a204d6/1i6hgndo4';
+                s1.charset = 'UTF-8';
+                s1.setAttribute('crossorigin', '*');
+                s0.parentNode.insertBefore(s1, s0);
+            })();
+        </script>
+        <!--End of Tawk.to Script-->
+    </form>
+</body>
+</html>
